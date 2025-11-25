@@ -1,276 +1,127 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="style.css">
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>SnackForge — AI-Engineered Fuel for the Outdoors</title>
-  <meta name="description" content="SnackForge designs performance snacks using AI + food science — built for hikers, skiers, and endurance athletes. Join the waitlist." />
-  <meta name="theme-color" content="#0A1A34" />
-  <style>
-    /* -------- VARIABLES -------- */
-    :root{
-      --bg:#0A1A34;         /* deep blue */
-      --accent:#FF7A2D;     /* energy orange */
-      --accent-2:#4CFF8F;   /* neon green */
-      --white:#ffffff;
-      --muted:#E6EEF6;
-      --card:#0F2746;
-      --glass: rgba(255,255,255,0.06);
-      --max-width:1100px;
-      --radius:12px;
-      --ff-sans: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
-    }
-
-    /* -------- BASE -------- */
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:var(--ff-sans);
-      background:linear-gradient(180deg,#071229 0%, #071a2d 60%, #0A1A34 100%);
-      color:var(--muted);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.45;
-    }
-    a{color:var(--accent); text-decoration:none}
-    .wrap{max-width:var(--max-width); margin:0 auto; padding:28px;}
-
-    /* -------- NAV -------- */
-    header{position:sticky; top:0; z-index:40; backdrop-filter: blur(6px); background:linear-gradient(180deg, rgba(10,26,52,0.55), rgba(10,26,52,0.40)); border-bottom:1px solid rgba(255,255,255,0.03)}
-    .nav{display:flex;align-items:center;gap:18px;justify-content:space-between;padding:12px 18px;}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{
-      width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
-      display:flex;align-items:center;justify-content:center;color:#061325;font-weight:700;font-size:16px;
-      box-shadow:0 6px 18px rgba(76,255,143,0.06), inset 0 -4px 8px rgba(0,0,0,0.08);
-    }
-    nav a{color:var(--muted);margin-left:12px;font-weight:500}
-    .cta{background:var(--accent); color:#081426; padding:10px 14px;border-radius:10px;font-weight:700}
-
-    /* -------- HERO -------- */
-    .hero{display:grid;grid-template-columns:1fr;gap:18px;align-items:center;padding:48px 18px;}
-    .hero-inner{display:flex;flex-direction:column;gap:18px}
-    h1{font-size:32px;color:var(--white);margin:0;line-height:1.05}
-    p.lead{color:var(--muted);margin:0;max-width:720px}
-    .hero-ctas{display:flex;gap:12px}
-    .btn{background:transparent;border:1px solid rgba(255,255,255,0.06); color:var(--muted); padding:10px 14px;border-radius:10px}
-    .btn-primary{background:var(--accent); color:#061325; border:0; font-weight:700}
-    .visual{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:18px;border-radius:14px;display:flex;align-items:center;gap:14px;box-shadow:0 6px 30px rgba(6,19,37,0.6)}
-    .bar-sim{width:160px;height:60px;background:linear-gradient(90deg,#EDE6DB 0%, #F6EDE3 100%);border-radius:8px;padding:10px;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#08323b;font-weight:700}
-    .tag{color:var(--accent-2);font-weight:700;border-radius:10px;padding:6px 10px;background:rgba(76,255,143,0.06);display:inline-block}
-
-    /* -------- SECTIONS -------- */
-    section{padding:36px 18px}
-    .card{background:var(--card);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.03)}
-    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-    .center{text-align:center}
-    .muted{color:rgba(230,238,246,0.75)}
-
-    /* Product preview */
-    .product{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
-    .product-img{width:280px;height:140px;border-radius:10px;background:linear-gradient(90deg,#f3f2ef,#efe9e0);display:flex;align-items:center;justify-content:center;color:#2a2b2c;font-weight:700}
-    .specs{display:flex;flex-direction:column;gap:8px}
-
-    /* Founder */
-    .founder{display:flex;gap:18px;align-items:center}
-    .avatar{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#061325,#0f2746);display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:700}
-
-    /* Waitlist form */
-    .waitlist{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-    input[type="email"], input[type="text"], textarea{
-      background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); color:var(--muted);
-      padding:12px;border-radius:10px; width:100%; min-width:220px;
-    }
-    button[type="submit"]{background:var(--accent); color:#061325;padding:12px 16px;border-radius:10px;border:0;font-weight:700}
-    .foot{padding:28px 18px;color:rgba(230,238,246,0.6);font-size:13px;text-align:center}
-
-    /* responsive */
-    @media (max-width:900px){
-      .grid-3{grid-template-columns:1fr; }
-      .product{flex-direction:column; align-items:stretch}
-      h1{font-size:26px}
-      .hero{padding:28px 12px}
-      .brand{gap:8px}
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SnackForge — AI-Engineered Fuel for Outdoor Athletes</title>
+<meta name="description" content="SnackForge creates AI-designed performance snacks for hikers, skiers, climbers, and endurance athletes. Join the waitlist for early prototypes.">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/png" href="images/favicon.png">
 </head>
 <body>
-  <header>
-    <div class="wrap nav">
-      <div class="brand">
-        <div class="logo">SF</div>
-        <div>
-          <div style="font-weight:700;color:var(--white)">SnackForge</div>
-          <div style="font-size:12px;color:var(--muted)">AI-Engineered Fuel for the Outdoors</div>
-        </div>
+
+<!-- NAVIGATION -->
+<header>
+  <div class="container nav">
+    <div class="brand">
+      <div class="logo">SF</div>
+      <div class="brand-text">
+        <h1>SnackForge</h1>
+        <span>AI-Engineered Outdoor Nutrition</span>
       </div>
-      <nav>
-        <a href="#how">How it works</a>
-        <a href="#product">FROSKI Bar</a>
-        <a href="#founder">Founder</a>
-        <a class="cta" href="#waitlist">Join Waitlist</a>
-      </nav>
     </div>
-  </header>
+    <nav>
+      <a href="#how">How it Works</a>
+      <a href="#product">FROSKI Bar</a>
+      <a href="#founder">Founder</a>
+      <a class="cta" href="#waitlist">Join Waitlist</a>
+    </nav>
+  </div>
+</header>
 
-  <main>
-    <section class="hero wrap" aria-label="Hero">
-      <div class="hero-inner">
-        <h1>AI-Engineered Fuel for the Outdoors</h1>
-        <p class="lead">SnackForge designs performance snacks using data-driven formulation — built for hikers, skiers, climbers, and endurance athletes.</p>
-
-        <div class="hero-ctas">
-          <a class="btn btn-primary" href="#waitlist">Join the Waitlist</a>
-          <a class="btn" href="#product">See Early Concepts</a>
-        </div>
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="hero-overlay">
+    <div class="container hero-content">
+      <h2>AI-Engineered Fuel for the Outdoors</h2>
+      <p>Performance snacks designed for cold-weather, altitude, and endurance. Built with AI and food science for hikers, skiers, and climbers.</p>
+      <div class="btn-group">
+        <a href="#waitlist" class="btn btn-primary">Join Waitlist</a>
+        <a href="#product" class="btn btn-secondary">See Early Concepts</a>
       </div>
+    </div>
+  </div>
+</section>
 
-      <div class="visual" aria-hidden="true">
-        <div style="flex:1">
-          <div class="tag">Prototype</div>
-          <div style="height:8px"></div>
-          <div style="font-weight:700;color:var(--white);font-size:18px">FROSKI — Cold-Resistant Energy Bar</div>
-          <div style="height:8px"></div>
-          <div style="color:var(--muted);font-size:13px">Soft in freezing temps • High energy • Maple + chocolate</div>
-        </div>
-        <div style="width:160px">
-          <div class="bar-sim">FROSKI BAR</div>
-        </div>
-      </div>
-    </section>
+<!-- ABOUT -->
+<section id="about" class="container section">
+  <h3 class="section-title">What is SnackForge?</h3>
+  <p>SnackForge combines food science and AI to engineer performance snacks for extreme outdoor conditions. Our first prototype, the <strong>FROSKI Cold-Resistant Energy Bar</strong>, is designed to stay soft in freezing temperatures while providing high-energy fuel for endurance.</p>
+</section>
 
-    <section class="wrap">
-      <div class="card">
-        <h3 style="margin-top:0;color:var(--white)">What is SnackForge?</h3>
-        <p class="muted">SnackForge is a next-generation food startup using AI and food science to engineer performance nutrition for hikers, skiers, climbers, and endurance athletes.</p>
-        <p class="muted">Our first prototype — the <strong>FROSKI Cold-Resistant Energy Bar</strong> — is formulated to stay soft in freezing temperatures and fuel long outdoor adventures.</p>
-      </div>
-    </section>
+<!-- HOW IT WORKS -->
+<section id="how" class="container section">
+  <h3 class="section-title">How It Works</h3>
+  <div class="steps">
+    <div class="step">
+      <h4>1. Athlete Input</h4>
+      <p>Share your activity type, climate, goals, and dietary preferences.</p>
+    </div>
+    <div class="step">
+      <h4>2. AI Formulation</h4>
+      <p>Our AI generates optimized ingredient ratios, macros, and texture for your performance needs.</p>
+    </div>
+    <div class="step">
+      <h4>3. Human Refinement</h4>
+      <p>We produce small-batch prototypes and test with real athletes for taste, texture, and cold performance.</p>
+    </div>
+  </div>
+</section>
 
-    <section id="how" class="wrap">
-      <div class="grid-3">
-        <div class="card center">
-          <h4 style="color:var(--white)">1. Athlete Input</h4>
-          <p class="muted">Tell us your activity type, climate, nutrition goals, and dietary needs.</p>
-        </div>
+<!-- PRODUCT -->
+<section id="product" class="container section">
+  <h3 class="section-title">Introducing the FROSKI Bar</h3>
+  <div class="product">
+    <div class="product-img">
+      <img src="images/froski-mockup.png" alt="FROSKI Bar">
+    </div>
+    <div class="product-details">
+      <p>The FROSKI Bar is a cold-resistant chocolate-chip energy bar engineered for skiing, mountaineering, and winter hiking.</p>
+      <ul>
+        <li>Soft chew at –10°C to –20°C</li>
+        <li>~230–250 kcal per bar — balanced carbs + fats</li>
+        <li>Mini chocolate chips & maple crunch</li>
+        <li>Low moisture for shelf stability</li>
+      </ul>
+      <a href="#waitlist" class="btn btn-primary">Get Early Access</a>
+    </div>
+  </div>
+</section>
 
-        <div class="card center">
-          <h4 style="color:var(--white)">2. AI Formulation</h4>
-          <p class="muted">Our AI generates ingredient ratios, macros, and process steps based on nutrition data and sports requirements.</p>
-        </div>
+<!-- FOUNDER -->
+<section id="founder" class="container section">
+  <h3 class="section-title">Meet the Founder</h3>
+  <div class="founder">
+    <div class="avatar">
+      <img src="images/founder.png" alt="Founder">
+    </div>
+    <div class="founder-bio">
+      <p>Hi — I’m [Your Name], a process engineer and outdoor enthusiast. I started SnackForge after noticing most energy snacks fail in cold conditions. Combining engineering, food industry experience, and AI, SnackForge designs snacks that truly perform outdoors.</p>
+    </div>
+  </div>
+</section>
 
-        <div class="card center">
-          <h4 style="color:var(--white)">3. Human Refinement</h4>
-          <p class="muted">We produce small-batch prototypes and test with real athletes to validate taste, texture, and cold performance.</p>
-        </div>
-      </div>
-    </section>
+<!-- WAITLIST FORM -->
+<section id="waitlist" class="container section">
+  <h3 class="section-title">Become an Early Tester</h3>
+  <p>Get early prototypes, give feedback, and help shape the future of outdoor nutrition.</p>
+  <form id="waitForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="waitlist">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Email Address" required>
+    <input type="text" name="role" placeholder="Role (athlete/influencer/founder)">
+    <textarea name="idea" placeholder="Your product idea or goal (optional)"></textarea>
+    <button type="submit">Join Waitlist</button>
+  </form>
+</section>
 
-    <section id="product" class="wrap">
-      <div class="card product">
-        <div class="product-img" role="img" aria-label="FROSKI bar image placeholder">
-          <div>FROSKI BAR VISUAL</div>
-        </div>
-        <div class="specs">
-          <h3 style="margin:0;color:var(--white)">Introducing the FROSKI Bar</h3>
-          <p class="muted">A cold-resistant chocolate-chip energy bar engineered for skiing, mountaineering, and winter hiking.</p>
-          <ul style="color:var(--muted);margin-top:6px">
-            <li>✔ Soft chew at –10°C to –20°C</li>
-            <li>✔ ~230–250 kcal • Balanced carbs + fats</li>
-            <li>✔ Mini chocolate chips and maple crunch</li>
-            <li>✔ Low moisture for shelf stability</li>
-          </ul>
-          <div style="height:8px"></div>
-          <a class="btn btn-primary" href="#waitlist">Get Early Access</a>
-        </div>
-      </div>
-    </section>
+<!-- FOOTER -->
+<footer>
+  <p>© <span id="year"></span> SnackForge • Follow us on <a href="#">Instagram</a> • Built by a process engineer</p>
+</footer>
 
-    <section id="founder" class="wrap">
-      <div class="card founder">
-        <div class="avatar">YOU</div>
-        <div>
-          <h3 style="margin:0;color:var(--white)">Meet the Founder</h3>
-          <p class="muted" style="margin-top:6px">
-            Hi — I’m <strong>Blake</strong>, a process engineer working in food manufacturing and a long-time outdoor enthusiast.
-            I started SnackForge after noticing most energy snacks fail in cold conditions — they freeze, get brittle, or lose flavour.
-            Combining engineering, industry experience, and AI, SnackForge designs snacks that truly perform outdoors.
-          </p>
-        </div>
-      </div>
-    </section>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
 
-    <section id="waitlist" class="wrap">
-      <div class="card center">
-        <h3 style="color:var(--white);margin:0">Become an Early Tester</h3>
-        <p class="muted">Get early prototypes, give feedback, and help build the world’s first AI-engineered outdoor snack company.</p>
-
-        <form id="waitForm" class="waitlist" onsubmit="return handleSubmit(event)">
-          <input id="name" name="name" type="text" placeholder="Your name" required />
-          <input id="email" name="email" type="email" placeholder="Email address" required />
-          <input id="role" name="role" type="text" placeholder="Role (influencer / gym owner / athlete / founder)" />
-          <textarea id="idea" name="idea" rows="2" placeholder="Your product idea or goals (optional)"></textarea>
-          <button type="submit">Join Waitlist</button>
-        </form>
-
-        <p id="thanks" style="display:none;margin-top:12px;color:var(--accent-2)">Thanks — you're on the waitlist! Check your inbox for a confirmation.</p>
-
-        <p style="margin-top:10px;color:rgba(230,238,246,0.6);font-size:13px">Prefer email? Send us a note: <a id="mailtoLink" href="#">contact@snackforge.example</a></p>
-      </div>
-    </section>
-
-    <section class="wrap">
-      <div class="card center">
-        <h4 style="color:var(--white)">Want to collaborate?</h4>
-        <p class="muted">We partner with micro-manufacturers, ski resorts, and outdoor shops for pilots and exclusive prototypes.</p>
-        <p><a class="btn" href="#contact">Contact us</a></p>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="foot">
-    © <span id="year"></span> SnackForge • Built by a process engineer • Follow on Instagram @snackforge
-  </footer>
-
-  <script>
-    /* ---------- Basic waitlist handling (local storage + mailto fallback) ---------- */
-    const ownerEmail = blakeadams05@outlook.com; // <-- replace with your real email
-    const year = new Date().getFullYear();
-    document.getElementById('year').textContent = year;
-    document.getElementById('mailtoLink').href = `mailto:${ownerEmail}`;
-
-    function handleSubmit(e){
-      e.preventDefault();
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const role = document.getElementById('role').value.trim();
-      const idea = document.getElementById('idea').value.trim();
-
-      if(!email) return alert('Please add an email address.');
-
-      // Store locally as simple queue (useful for early days)
-      const queue = JSON.parse(localStorage.getItem('snackforge_waitlist')||'[]');
-      queue.push({name, email, role, idea, ts: Date.now()});
-      localStorage.setItem('snackforge_waitlist', JSON.stringify(queue));
-
-      // Open mail client as fallback to notify you (replace ownerEmail above)
-      const subject = encodeURIComponent("SnackForge Waitlist Signup");
-      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nRole: ${role}\nIdea: ${idea}\n\n(Automatically generated from site)`);
-      const mailto = `mailto:${ownerEmail}?subject=${subject}&body=${body}`;
-      // show thanks message
-      document.getElementById('waitForm').style.display = 'none';
-      document.getElementById('thanks').style.display = 'block';
-      // open default mail client (optional)
-      setTimeout(()=> window.location.href = mailto, 600);
-      return false;
-    }
-
-    // Optional: Auto-fill with test data in dev
-    // Uncomment to debug quickly:
-    // localStorage.setItem('snackforge_waitlist', JSON.stringify([{name:"Test",email:"you@example.com",role:"tester",idea:"test",ts:Date.now()}]));
-  </script>
 </body>
 </html>
